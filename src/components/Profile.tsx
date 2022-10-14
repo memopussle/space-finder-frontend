@@ -17,7 +17,7 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
   }
 
   async componentDidMount() { // get data when data mounted
-    if (this.props.user) {
+    if (this.props.user) { // if user logs in
       const userAtrs = await this.props.authService.getUserAttributes(this.props.user)
       this.setState({
         userAttributes: userAtrs

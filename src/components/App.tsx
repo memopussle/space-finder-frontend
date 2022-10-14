@@ -7,6 +7,9 @@ import { Login } from "./Login";
 import Home from "./Home";
 import Profile from "./Profile";
 import { Route, Router, Switch } from "react-router-dom";
+import { Spaces } from "./spaces/Spaces";
+import { DataService } from "../services/DataService";
+
 
 interface AppState {
   user: User | undefined;
@@ -14,6 +17,7 @@ interface AppState {
 
 class App extends React.Component<{}, AppState> {
   private authService: AuthService = new AuthService();
+  private dataService: DataService = new DataService();
 
   constructor(props: any) {
     super(props);
@@ -32,7 +36,7 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <div className="wrapper">
+
         <div className="wrapper">
           <Router history={history}>
             <div>
@@ -47,12 +51,15 @@ class App extends React.Component<{}, AppState> {
                 </Route>
                 <Route exact path="/profile">
                   <Profile authService={this.authService} user={this.state.user} />
-                </Route>
+              </Route>
+              <Route exact path="/spaces">
+                <Spaces dataService={this.dataService}/>
+              </Route>
               </Switch>
             </div>
           </Router>
         </div>
-      </div>
+    
     );
   }
 }
