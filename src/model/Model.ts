@@ -1,17 +1,16 @@
-
-
 // define structure of the object
+
+import { CognitoUser } from "@aws-amplify/auth";
+
 
 export interface User {
   userName: string;
-  email: string;
+  cognitoUser: CognitoUser
 }
-
 
 export interface UserAttribute {
   Name: string;
   Value: string;
-
 }
 
 export interface Space {

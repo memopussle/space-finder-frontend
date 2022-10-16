@@ -1,18 +1,27 @@
 import { User, UserAttribute } from "../model/Model";
+import { Auth, Amplify } from "aws-amplify";
+import { config } from "./config";
+import { CognitoUser } from "@aws-amplify/auth";
+import * as AWS from "aws-sdk";
+import { Credentials } from "aws-sdk/lib/credentials";
+
+// amplify configuration
+Amplify.configure({
+  Auth: {
+    mandatorySignIn: false,
+    region: config.REGION,
+    userPoolId: config.USER_POOL_ID,
+    identityPoolId: config.IDENTITY_POOL_ID,
+    userPoolWebClientId: config.APP_CLIENT_ID,
+    authenticationFlowType: "USER_PASSWORD_AUTH",
+  },
+});
+
 
 export class AuthService {
-  public async login(
-    userName: string,
-    password: string
-  ): Promise<User | undefined> {
-    if (userName === "user" && password === "1234") {
-      return {
-        userName: userName,
-        email: "some@email.com",
-      };
-    } else {
-      return undefined;
-    }
+  // login from AuuthServiice backkend
+  public async login(userName: string, password: string) {
+    const user = (await Auth.signIn(userName, password)) as CognitoUser; 
   }
 
   // create a data table
