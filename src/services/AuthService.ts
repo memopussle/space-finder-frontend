@@ -17,33 +17,27 @@ Amplify.configure({
   },
 });
 
-
 export class AuthService {
-  // login from AuuthServiice backkend
-  public async login(userName: string, password: string) {
-    const user = (await Auth.signIn(userName, password)) as CognitoUser; 
+  public async login(userName: string, password: string): Promise<User | undefined> {
+    try {
+      const user = (await Auth.signIn(userName, password)) as CognitoUser; //copy fromauthservice backend
+      return {
+        cognitoUser: user, 
+        userName: user.getUsername()
+
+      }
+    } catch (error) {
+      return undefined;
+    }
   }
 
   // create a data table
   public async getUserAttributes(user: User): Promise<UserAttribute[]> {
     // promise return arrayy of userAttribute
     const result: UserAttribute[] = [];
-    result.push({
-      Name: "description",
-      Value: "Best user ever",
-    });
-    result.push({
-      Name: "job",
-      Value: "Engineer",
-    });
-    result.push({
-      Name: "age",
-      Value: "25",
-    });
-    result.push({
-      Name: "experience",
-      Value: "3 years",
-    });
+    const attributes = await Auth.userAttributes(user.cognitoUser) //get attributes
+    //push  array of user attributes: sub, email, etc
+    result.push(...attributes)
     return result;
   }
 }
