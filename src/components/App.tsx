@@ -9,6 +9,7 @@ import Profile from "./Profile";
 import { Route, Router, Switch } from "react-router-dom";
 import { Spaces } from "./spaces/Spaces";
 import { DataService } from "../services/DataService";
+import { CreateSpace } from "./spaces/CreateSpace";
 
 
 interface AppState {
@@ -36,30 +37,31 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-
-        <div className="wrapper">
-          <Router history={history}>
-            <div>
-              <Navbar user={this.state.user} />
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/login">
-                  <Login
-                    authService={this.authService}
-                    setUser={this.setUser}
-                  />
-                </Route>
-                <Route exact path="/profile">
-                  <Profile authService={this.authService} user={this.state.user} />
+      <div className="wrapper">
+        <Router history={history}>
+          <div>
+            <Navbar user={this.state.user} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login">
+                <Login authService={this.authService} setUser={this.setUser} />
+              </Route>
+              <Route exact path="/profile">
+                <Profile
+                  authService={this.authService}
+                  user={this.state.user}
+                />
               </Route>
               <Route exact path="/spaces">
-                <Spaces dataService={this.dataService}/>
+                <Spaces dataService={this.dataService} />
               </Route>
-              </Switch>
-            </div>
-          </Router>
-        </div>
-    
+              <Route exact path="/createSpace">
+                <CreateSpace dataService={this.dataService} />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </div>
     );
   }
 }
