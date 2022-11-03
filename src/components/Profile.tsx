@@ -7,7 +7,7 @@ interface ProfileState {
   userAttributes: UserAttribute[];
 }
 interface ProfileProps {
-  user: User | undefined;
+     user: User | undefined;
   authService: AuthService;
 }
 

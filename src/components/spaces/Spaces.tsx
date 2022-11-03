@@ -29,6 +29,7 @@ export class Spaces extends Component<SpacesProps, SpacesState> {
 
   async componentDidMount() {
     const spaces = await this.props.dataService.getSpaces();
+      console.log(spaces);
     this.setState({
       spaces: spaces,
     });
@@ -48,6 +49,8 @@ export class Spaces extends Component<SpacesProps, SpacesState> {
       })
     }
   }
+
+
 
   private renderSpaces() {
     const rows: any[] = [];

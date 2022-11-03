@@ -50,9 +50,7 @@ export class DataService {
   // return the spaces
   public async getSpaces(): Promise<Space[]> {
     const requestUrl = appConfig.api.spacesUrl;
-    const requestResult = await fetch(requestUrl, {
-      method: "GET",
-    });
+    const requestResult = await fetch(requestUrl);
     const responseJSON = await requestResult.json()
     return responseJSON
   }

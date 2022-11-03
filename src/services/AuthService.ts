@@ -23,7 +23,7 @@ export class AuthService {
     password: string
   ): Promise<User | undefined> {
     try {
-      const user = (await Auth.signIn(userName, password)) as CognitoUser; //copy fromauthservice backend
+      const user = (await Auth.signIn(userName, password)) as CognitoUser; //copy from authservice backend
       return {
         cognitoUser: user,
         userName: user.getUsername(),
